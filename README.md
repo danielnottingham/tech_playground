@@ -299,9 +299,11 @@ Select the tasks you wish to complete by marking them with an `X` in the `[ ]` b
 2. **Choose Your Adventure**: Pick the tasks that excite you and mark them in the checklist above.
 3. **Create Your Masterpiece**: Develop your solutions using your preferred tools and technologies.
 4. **Share Your Work**: Organize your code and documentation, and get ready to showcase what you've built.
+5. **Attention**: Ensure that no sensitive information (e.g., API keys, personal data) is included in your repository.
 
 ## Submission Guidelines
 
+- **Create a New Repository**: Use a platform such as GitHub, GitLab, or Bitbucket to host your repository.
 - **Code and Files**: Include all code, scripts, and other files used in your solution.
 - **README**: Provide a README file that:
   - Lists the tasks you completed.
@@ -309,6 +311,8 @@ Select the tasks you wish to complete by marking them with an `X` in the `[ ]` b
   - Discusses any assumptions or decisions you made.
 - **Documentation**: Include any reports or visualizations you created.
 - **Instructions**: Provide clear instructions for setting up and running your project.
+- **Share you repository**: Provide the link to your repository as per the submission instructions provided.
+
 
 ## Let Your Creativity Flow!
 
