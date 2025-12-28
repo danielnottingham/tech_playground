@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, NotFoundException } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { Employee } from './employee.entity';
 
@@ -15,7 +15,11 @@ export class EmployeesController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string): Promise<Employee | null> {
-        return this.employeesService.findOne(Number(id));
+    async findOne(@Param('id') id: string): Promise<Employee> {
+        const employee = await this.employeesService.findOne(Number(id));
+        if (!employee) {
+            throw new NotFoundException(`Employee with ID ${id} not found`);
+        }
+        return employee;
     }
 }

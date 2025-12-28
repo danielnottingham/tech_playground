@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     csv (3.3.5)
+    diff-lcs (1.6.2)
     pg (1.6.2)
     pg (1.6.2-aarch64-linux)
     pg (1.6.2-aarch64-linux-musl)
@@ -9,6 +10,19 @@ GEM
     pg (1.6.2-x86_64-darwin)
     pg (1.6.2-x86_64-linux)
     pg (1.6.2-x86_64-linux-musl)
+    rspec (3.13.2)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.6)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.7)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.6)
 
 PLATFORMS
   aarch64-linux
@@ -22,6 +36,7 @@ PLATFORMS
 DEPENDENCIES
   csv
   pg
+  rspec
 
 BUNDLED WITH
    2.7.2
