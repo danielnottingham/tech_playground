@@ -52,3 +52,10 @@ CREATE TABLE IF NOT EXISTS surveys (
     enps INTEGER,
     enps_comentario TEXT
 );
+
+CREATE INDEX IF NOT EXISTS idx_employees_area_id ON employees(area_id);
+CREATE INDEX IF NOT EXISTS idx_employees_email ON employees(email);
+CREATE INDEX IF NOT EXISTS idx_surveys_employee_id ON surveys(employee_id);
+CREATE INDEX IF NOT EXISTS idx_surveys_enps ON surveys(enps) WHERE enps IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_surveys_data_resposta ON surveys(data_resposta);
+CREATE INDEX IF NOT EXISTS idx_areas_hierarchy ON areas(n0_empresa, n1_diretoria, n2_gerencia, n3_coordenacao, n4_area);
