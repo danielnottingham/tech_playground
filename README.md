@@ -226,6 +226,14 @@ A API está disponível em `http://localhost:3000` e possui os seguintes endpoin
   - Query params: `page` (padrão: 1), `limit` (padrão: 10)
   - Exemplo: `GET /surveys?page=1&limit=20`
 
+### Estatísticas (Stats)
+
+- **GET** `/stats/company` - Métricas gerais da empresa (eNPS, favorabilidade, médias)
+- **GET** `/stats/areas` - Métricas agrupadas por área
+- **GET** `/stats/areas/:id` - Métricas de uma área específica
+- **GET** `/stats/employees/:id` - Métricas de um funcionário específico
+- **GET** `/stats/enps` - Cálculo detalhado do eNPS (promoters, passives, detractors)
+
 ### Exemplos de Uso
 
 ```bash
@@ -240,6 +248,12 @@ curl http://localhost:3000/areas
 
 # Listar pesquisas
 curl http://localhost:3000/surveys
+
+# Ver métricas da empresa
+curl http://localhost:3000/stats/company
+
+# Ver detalhe eNPS
+curl http://localhost:3000/stats/enps
 ```
 
 ## Banco de Dados

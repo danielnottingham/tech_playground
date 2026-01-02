@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmployeesModule } from './employees/employees.module';
 import { AreasModule } from './areas/areas.module';
 import { SurveysModule } from './surveys/surveys.module';
+import { StatsModule } from './stats/stats.module';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { SurveysModule } from './surveys/surveys.module';
         EmployeesModule,
         AreasModule,
         SurveysModule,
+        StatsModule,
     ],
     controllers: [],
     providers: [],
