@@ -22,10 +22,10 @@ Abaixo está a lista de tarefas concluídas conforme os requisitos do desafio:
 - [x] **Task 2**: Create a Basic Dashboard
 - [x] **Task 3**: Create a Test Suite
 - [x] **Task 4**: Create a Docker Compose Setup
-- [ ] **Task 5**: Exploratory Data Analysis
+- [x] **Task 5**: Exploratory Data Analysis
 - [x] **Task 6**: Data Visualization - Company Level
 - [x] **Task 7**: Data Visualization - Area Level
-- [ ] **Task 8**: Data Visualization - Employee Level
+- [x] **Task 8**: Data Visualization - Employee Level
 - [x] **Task 9**: Build a Simple API
 - [ ] **Task 10**: Sentiment Analysis
 - [ ] **Task 11**: Report Generation
