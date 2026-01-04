@@ -1,14 +1,14 @@
-import React from 'react';
+import type { FC, ReactNode } from 'react';
 
 interface MetricsCardProps {
     title: string;
     value: string | number;
     description?: string;
     change?: number;
-    icon?: React.ReactNode;
+    icon?: ReactNode;
 }
 
-export const MetricsCard: React.FC<MetricsCardProps> = ({ title, value, description, change }) => {
+export const MetricsCard: FC<MetricsCardProps> = ({ title, value, description, change }) => {
     return (
         <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <div className="flex justify-between items-start">

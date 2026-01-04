@@ -14,6 +14,23 @@ Sistema de análise de pesquisas de funcionários desenvolvido com NestJS, Postg
 - [Banco de Dados](#banco-de-dados)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 
+## 🏆 Status do Desafio Técnico
+
+Abaixo está a lista de tarefas concluídas conforme os requisitos do desafio:
+
+- [x] **Task 1**: Create a Basic Database
+- [x] **Task 2**: Create a Basic Dashboard
+- [x] **Task 3**: Create a Test Suite
+- [x] **Task 4**: Create a Docker Compose Setup
+- [ ] **Task 5**: Exploratory Data Analysis
+- [x] **Task 6**: Data Visualization - Company Level
+- [x] **Task 7**: Data Visualization - Area Level
+- [ ] **Task 8**: Data Visualization - Employee Level
+- [x] **Task 9**: Build a Simple API
+- [ ] **Task 10**: Sentiment Analysis
+- [ ] **Task 11**: Report Generation
+- [ ] **Task 12**: Creative Exploration
+
 ## Pré-requisitos
 
 Antes de começar, certifique-se de ter instalado:
@@ -30,8 +47,15 @@ tech_playground/
 │   │   ├── employees/   # Módulo de funcionários
 │   │   ├── areas/       # Módulo de áreas
 │   │   ├── surveys/     # Módulo de pesquisas
+│   │   ├── stats/       # Módulo de estatísticas
 │   │   └── main.ts      # Ponto de entrada
 │   └── test/            # Testes e2e
+├── frontend/            # Dashboard React
+│   ├── src/
+│   │   ├── components/  # Componentes reutilizáveis
+│   │   ├── pages/       # Páginas (Dashboard, Areas)
+│   │   └── services/    # Cliente API (Axios)
+│   └── Dockerfile       # Configuração Docker do frontend
 ├── data.csv             # Dataset para importação
 ├── import_data.rb       # Script de importação (Ruby)
 ├── init.sql             # Schema do banco de dados
@@ -56,6 +80,7 @@ docker-compose up -d
 Isso irá:
 - Criar e iniciar o container PostgreSQL
 - Criar e iniciar o container do backend NestJS
+- Criar e iniciar o container do frontend React
 - Criar o banco de dados `tech_playground`
 - Executar o script `init.sql` para criar as tabelas e índices
 
@@ -72,6 +97,7 @@ docker-compose logs -f backend
 ```
 
 O backend estará disponível em: `http://localhost:3000`
+O dashboard estará disponível em: `http://localhost:5173`
 
 ## Importação de Dados
 
@@ -166,7 +192,20 @@ docker-compose down -v
 docker-compose restart
 ```
 
-O servidor estará disponível em: `http://localhost:3000`
+O servidor (API) estará disponível em: `http://localhost:3000`
+O dashboard (Frontend) estará disponível em: `http://localhost:5173`
+
+## Funcionalidades do Dashboard
+
+### 📊 Visão Geral (Company)
+- **Métricas Principais**: eNPS atual, índice de favorabilidade, total de pesquisas.
+- **Gráficos**:
+  - Distribuição eNPS (Promoters vs Passives vs Detractors).
+  - Distribuição de notas por competência (Liderança, Carreira, etc.).
+
+### 🏢 Áreas (Areas)
+- **Lista de Áreas**: Comparativo rápido entre setores com cards de resumo.
+- **Detalhes da Área**: Visão aprofundada de uma área específica, permitindo comparar com a média da empresa.
 
 ## Executando os Testes
 
@@ -345,6 +384,13 @@ CREATE TABLE surveys (
 - **TypeORM** - ORM para PostgreSQL
 - **TypeScript** - Linguagem de programação
 - **PostgreSQL** - Banco de dados relacional
+
+### Frontend
+- **React** - Biblioteca UI
+- **Vite** - Build tool e dev server
+- **TailwindCSS** - Framework de estilização
+- **Chart.js** - Biblioteca de gráficos
+- **Axios** - Cliente HTTP
 
 ### Importação
 - **Ruby** - Linguagem do script de importação
