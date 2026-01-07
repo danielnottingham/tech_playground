@@ -12,6 +12,7 @@ Sistema de análise de pesquisas de funcionários desenvolvido com NestJS, Postg
 - [Executando os Testes](#executando-os-testes)
 - [API Endpoints](#api-endpoints)
 - [Banco de Dados](#banco-de-dados)
+- [Premissas e Decisões de Projeto](#premissas-e-decisões-de-projeto)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 
 ## 🏆 Status do Desafio Técnico
@@ -376,6 +377,32 @@ CREATE TABLE surveys (
     enps_comentario TEXT
 );
 ```
+## Premissas e Decisões de Projeto
+
+Para atender aos requisitos do desafio e garantir uma solução robusta, as seguintes premissas e decisões técnicas foram adotadas:
+
+### 1. Arquitetura e Separação de Responsabilidades
+- **ETL Dedicado (Ruby)**: Optou-se por criar um script de importação independente em Ruby (`import_data.rb`). A decisão baseia-se na facilidade do Ruby para processamento de texto e scripts de automação. Isso desacopla a lógica de "ingestão de dados" da lógica de "serviço de dados" (API), permitindo que a importação seja executada on-demand ou via job agendado sem impactar a performance da API.
+
+- **Backend (NestJS) vs Frontend (React)**: A separação clara entre cliente e servidor permite que ambas as pontas evoluam independentemente. O NestJS foi escolhido pela sua estrutura modular e suporte nativo a TypeScript, facilitando a manutenção e testes.
+
+### 2. Modelagem de Dados
+- **Normalização de Áreas**: Ao invés de repetir a hierarquia de áreas (N0 a N4) em cada registro de funcionário, decidiu-se normalizar essa estrutura na tabela `areas`. Isso evita inconsistências de dados (ex: grafias diferentes para a mesma área) e facilita consultas hierárquicas.
+
+- **Manutenção dos Nomes em Português**: No banco de dados, optou-se por manter os nomes das colunas alinhados com o CSV original (ex: `n0_empresa`, `cargo`). Isso facilita a rastreabilidade dos dados e reduz erros de tradução/interpretação durante o processo de importação e validação.
+
+### 3. Performance e Otimização
+- **Índices Estratégicos**: Foram criados índices específicos (`idx_employees_area_id`, `idx_surveys_enps`, etc.) antecipando as queries mais frequentes dos dashboards, como filtros por área e cálculos de eNPS.
+
+- **Cálculo de Métricas**: As métricas de eNPS e favorabilidade são calculadas em tempo real pelo banco de dados (via queries otimizadas) para garantir que o dashboard reflita sempre o estado atual dos dados sem necessidade de jobs de pré-agregação complexos para este volume de dados.
+
+### 4. Suposições sobre os Dados
+- **Unicidade do Funcionário**: Assumiu-se que o `email` é a chave única para identificar um funcionário.
+
+- **Hierarquia Fixa**: Assumiu-se que a estrutura N0-N4 é estável e define a alocação de um funcionário.
+
+---
+
 
 ## Tecnologias Utilizadas
 
