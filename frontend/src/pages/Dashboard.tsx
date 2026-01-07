@@ -44,10 +44,10 @@ const getEnpsColor = (score: number): string => {
 };
 
 const getEnpsLabel = (score: number): string => {
-    if (score >= 50) return 'Excellent';
-    if (score >= 30) return 'Good';
-    if (score >= 0) return 'Moderate';
-    return 'Needs Improvement';
+    if (score >= 50) return 'Excelente';
+    if (score >= 30) return 'Bom';
+    if (score >= 0) return 'Moderado';
+    return 'Precisa Melhorar';
 };
 
 export const Dashboard: FC = () => {
@@ -62,7 +62,7 @@ export const Dashboard: FC = () => {
                 setStats(response.data);
             } catch (err) {
                 console.error('Error fetching stats:', err);
-                setError('Failed to load dashboard data. Please ensure the backend is running.');
+                setError('Falha ao carregar dados do painel. Verifique se o backend está em execução.');
             } finally {
                 setLoading(false);
             }
@@ -76,7 +76,7 @@ export const Dashboard: FC = () => {
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading dashboard...</p>
+                    <p className="mt-4 text-gray-600">Carregando painel...</p>
                 </div>
             </div>
         );
@@ -86,12 +86,12 @@ export const Dashboard: FC = () => {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center bg-white p-8 rounded-xl shadow-sm border border-red-100">
-                    <p className="text-red-500 text-lg">{error || 'Error loading data.'}</p>
+                    <p className="text-red-500 text-lg">{error || 'Erro ao carregar dados.'}</p>
                     <button
                         onClick={() => window.location.reload()}
                         className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
                     >
-                        Retry
+                        Tentar novamente
                     </button>
                 </div>
             </div>
@@ -99,7 +99,7 @@ export const Dashboard: FC = () => {
     }
 
     const enpsDonutData = {
-        labels: ['Promoters (9-10)', 'Passives (7-8)', 'Detractors (0-6)'],
+        labels: ['Promotores (9-10)', 'Neutros (7-8)', 'Detratores (0-6)'],
         datasets: [
             {
                 data: [stats.enps.promoters, stats.enps.passives, stats.enps.detractors],
@@ -140,10 +140,10 @@ export const Dashboard: FC = () => {
     };
 
     const enpsBarData = {
-        labels: ['Promoters', 'Passives', 'Detractors'],
+        labels: ['Promotores', 'Neutros', 'Detratores'],
         datasets: [
             {
-                label: 'Count',
+                label: 'Quantidade',
                 data: [stats.enps.promoters, stats.enps.passives, stats.enps.detractors],
                 backgroundColor: [
                     'rgba(34, 197, 94, 0.6)',
@@ -172,14 +172,14 @@ export const Dashboard: FC = () => {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'Number of Responses'
+                    text: 'Número de Respostas'
                 }
             }
         }
     };
 
     const favorabilityData = {
-        labels: ['Favorable (4-5)', 'Unfavorable (1-3)'],
+        labels: ['Favorável (4-5)', 'Desfavorável (1-3)'],
         datasets: [
             {
                 data: [stats.favorability, 100 - stats.favorability],
@@ -211,38 +211,38 @@ export const Dashboard: FC = () => {
         <div className="min-h-screen bg-gray-50 p-8">
             <div className="max-w-7xl mx-auto">
                 <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">Company Dashboard</h1>
-                    <p className="text-gray-500 mt-2">Overview of employee engagement metrics across the organization</p>
+                    <h1 className="text-3xl font-bold text-gray-900">Painel da Empresa</h1>
+                    <p className="text-gray-500 mt-2">Visão geral das métricas de engajamento dos colaboradores</p>
                 </header>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <MetricsCard
-                        title="eNPS Score"
+                        title="eNPS"
                         value={stats.enps.score.toFixed(0)}
                         description={getEnpsLabel(stats.enps.score)}
                     />
                     <MetricsCard
-                        title="Favorability"
+                        title="Favorabilidade"
                         value={`${stats.favorability.toFixed(1)}%`}
-                        description="Positive responses (4+)"
+                        description="Respostas positivas (4+)"
                     />
                     <MetricsCard
-                        title="Total Surveys"
+                        title="Total de Pesquisas"
                         value={stats.total_surveys}
-                        description="Responses collected"
+                        description="Respostas coletadas"
                     />
                     <MetricsCard
-                        title="Response Rate"
+                        title="Taxa de Resposta"
                         value={`${stats.enps.total}`}
-                        description="Valid eNPS responses"
+                        description="Respostas válidas de eNPS"
                     />
                 </div>
 
                 <div className="mb-8">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Employee Net Promoter Score (eNPS)</h2>
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Índice de recomendação líquida do funcionário (eNPS)</h2>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                             <div className="text-center">
-                                <p className="text-sm font-medium text-gray-500 mb-2">Current eNPS</p>
+                                <p className="text-sm font-medium text-gray-500 mb-2">eNPS Atual</p>
                                 <div className={`text-6xl font-bold ${getEnpsColor(stats.enps.score)}`}>
                                     {stats.enps.score.toFixed(0)}
                                 </div>
@@ -250,7 +250,7 @@ export const Dashboard: FC = () => {
                                     {getEnpsLabel(stats.enps.score)}
                                 </p>
                                 <div className="mt-4 text-xs text-gray-400">
-                                    Scale: -100 to +100
+                                    Escala: -100 a +100
                                 </div>
 
                                 <div className="mt-4 relative h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full">
@@ -268,27 +268,27 @@ export const Dashboard: FC = () => {
                         </div>
 
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Response Distribution</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Distribuição das Respostas</h3>
                             <div className="h-64">
                                 <Doughnut data={enpsDonutData} options={enpsDonutOptions} />
                             </div>
                         </div>
 
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">eNPS Breakdown</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Detalhamento do eNPS</h3>
                             <Bar data={enpsBarData} options={enpsBarOptions} />
                             <div className="mt-4 grid grid-cols-3 gap-2 text-center text-sm">
                                 <div className="bg-green-50 p-2 rounded">
                                     <div className="font-bold text-green-600">{stats.enps.promoters}</div>
-                                    <div className="text-green-700 text-xs">Promoters</div>
+                                    <div className="text-green-700 text-xs">Promotores</div>
                                 </div>
                                 <div className="bg-yellow-50 p-2 rounded">
                                     <div className="font-bold text-yellow-600">{stats.enps.passives}</div>
-                                    <div className="text-yellow-700 text-xs">Passives</div>
+                                    <div className="text-yellow-700 text-xs">Neutros</div>
                                 </div>
                                 <div className="bg-red-50 p-2 rounded">
                                     <div className="font-bold text-red-600">{stats.enps.detractors}</div>
-                                    <div className="text-red-700 text-xs">Detractors</div>
+                                    <div className="text-red-700 text-xs">Detratores</div>
                                 </div>
                             </div>
                         </div>
@@ -296,43 +296,43 @@ export const Dashboard: FC = () => {
                 </div>
 
                 <div className="mb-8">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Survey Scores & Favorability</h2>
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Pontuações da Pesquisa e Favorabilidade</h2>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Overall Favorability</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Favorabilidade Geral</h3>
                             <div className="h-64 relative">
                                 <Doughnut data={favorabilityData} options={favorabilityOptions} />
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <div className="text-center">
                                         <div className="text-3xl font-bold text-indigo-600">{stats.favorability.toFixed(1)}%</div>
-                                        <div className="text-xs text-gray-500">Favorable</div>
+                                        <div className="text-xs text-gray-500">Favorável</div>
                                     </div>
                                 </div>
                             </div>
                             <p className="text-center text-sm text-gray-500 mt-4">
-                                Percentage of responses rated 4 or higher on the scale
+                                Percentual de respostas avaliadas como 4 ou mais
                             </p>
                         </div>
 
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Average Scores by Category</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Média de Pontuação por Categoria</h3>
                             <ScoreDistribution averages={stats.averages} />
                             <p className="text-center text-sm text-gray-500 mt-4">
-                                Average scores across all survey categories (1-7 scale)
+                                Média de pontuação em todas as categorias (escala 1-7)
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Detailed Category Scores</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Pontuações Detalhadas por Categoria</h3>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
                                 <tr className="border-b border-gray-200">
-                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Category</th>
-                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Average Score</th>
-                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Performance</th>
+                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Categoria</th>
+                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Média</th>
+                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Desempenho</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -367,7 +367,7 @@ export const Dashboard: FC = () => {
                 </div>
 
                 <footer className="mt-8 text-center text-sm text-gray-400">
-                    <p>Data based on {stats.total_surveys} survey responses</p>
+                    <p>Dados baseados em {stats.total_surveys} respostas</p>
                 </footer>
             </div>
         </div>

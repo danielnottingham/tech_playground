@@ -77,7 +77,7 @@ export const EmployeesList: FC = () => {
                 setPagination(response.data.pagination);
             } catch (err) {
                 console.error('Error fetching employees:', err);
-                setError('Failed to load employees. Please ensure the backend is running.');
+                setError('Falha ao carregar colaboradores. Verifique se o backend está em execução.');
             } finally {
                 setLoading(false);
             }
@@ -95,7 +95,7 @@ export const EmployeesList: FC = () => {
                         onClick={() => window.location.reload()}
                         className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
                     >
-                        Retry
+                        Tentar novamente
                     </button>
                 </div>
             </div>
@@ -106,8 +106,8 @@ export const EmployeesList: FC = () => {
         <div className="min-h-screen bg-gray-50 p-8">
             <div className="max-w-7xl mx-auto">
                 <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">Employees</h1>
-                    <p className="text-gray-500 mt-2">View individual employee metrics and survey performance</p>
+                    <h1 className="text-3xl font-bold text-gray-900">Colaboradores</h1>
+                    <p className="text-gray-500 mt-2">Visualize métricas individuais e desempenho nas pesquisas</p>
                 </header>
 
                 {/* Search Bar */}
@@ -116,7 +116,7 @@ export const EmployeesList: FC = () => {
                         <div className="flex-1">
                             <input
                                 type="text"
-                                placeholder="Search by name, email, or position..."
+                                placeholder="Buscar por nome, email ou cargo..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
@@ -124,7 +124,7 @@ export const EmployeesList: FC = () => {
                         </div>
                         {pagination && (
                             <div className="text-sm text-gray-500">
-                                Showing {employees.length} of {pagination.total} employees
+                                Exibindo {employees.length} de {pagination.total} colaboradores
                             </div>
                         )}
                     </div>
@@ -135,24 +135,24 @@ export const EmployeesList: FC = () => {
                     {loading ? (
                         <div className="p-12 text-center">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-                            <p className="mt-4 text-gray-600">Loading employees...</p>
+                            <p className="mt-4 text-gray-600">Carregando colaboradores...</p>
                         </div>
                     ) : employees.length === 0 ? (
                         <div className="p-12 text-center text-gray-500">
-                            No employees found matching your search criteria.
+                            Nenhum colaborador encontrado com os critérios de busca.
                         </div>
                     ) : (
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        <th className="text-left py-3 px-4 font-medium text-gray-600">Employee</th>
-                                        <th className="text-left py-3 px-4 font-medium text-gray-600">Position</th>
-                                        <th className="text-left py-3 px-4 font-medium text-gray-600">Area</th>
-                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Surveys</th>
+                                        <th className="text-left py-3 px-4 font-medium text-gray-600">Colaborador</th>
+                                        <th className="text-left py-3 px-4 font-medium text-gray-600">Cargo</th>
+                                        <th className="text-left py-3 px-4 font-medium text-gray-600">Área</th>
+                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Pesquisas</th>
                                         <th className="text-center py-3 px-4 font-medium text-gray-600">eNPS</th>
-                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Favorability</th>
-                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Actions</th>
+                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Favorabilidade</th>
+                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-100">
@@ -201,7 +201,7 @@ export const EmployeesList: FC = () => {
                                                     to={`/employees/${employee.id}`}
                                                     className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors"
                                                 >
-                                                    View Details
+                                                    Ver Detalhes
                                                 </Link>
                                             </td>
                                         </tr>
@@ -215,7 +215,7 @@ export const EmployeesList: FC = () => {
                     {pagination && pagination.totalPages > 1 && (
                         <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-t border-gray-100">
                             <div className="text-sm text-gray-500">
-                                Page {pagination.page} of {pagination.totalPages}
+                                Página {pagination.page} de {pagination.totalPages}
                             </div>
                             <div className="flex gap-2">
                                 <button
@@ -223,7 +223,7 @@ export const EmployeesList: FC = () => {
                                     disabled={currentPage === 1}
                                     className="px-3 py-1 rounded-lg text-sm font-medium bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    Previous
+                                    Anterior
                                 </button>
                                 {[...Array(Math.min(5, pagination.totalPages))].map((_, i) => {
                                     let pageNum: number;
@@ -241,11 +241,10 @@ export const EmployeesList: FC = () => {
                                         <button
                                             key={pageNum}
                                             onClick={() => setCurrentPage(pageNum)}
-                                            className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                                                currentPage === pageNum
-                                                    ? 'bg-indigo-600 text-white'
-                                                    : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-                                            }`}
+                                            className={`px-3 py-1 rounded-lg text-sm font-medium ${currentPage === pageNum
+                                                ? 'bg-indigo-600 text-white'
+                                                : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                                                }`}
                                         >
                                             {pageNum}
                                         </button>
@@ -256,7 +255,7 @@ export const EmployeesList: FC = () => {
                                     disabled={currentPage === pagination.totalPages}
                                     className="px-3 py-1 rounded-lg text-sm font-medium bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    Next
+                                    Próxima
                                 </button>
                             </div>
                         </div>
@@ -264,7 +263,7 @@ export const EmployeesList: FC = () => {
                 </div>
 
                 <footer className="mt-8 text-center text-sm text-gray-400">
-                    <p>Click on any employee to view their detailed survey analysis and comparison</p>
+                    <p>Clique em qualquer colaborador para ver sua análise detalhada</p>
                 </footer>
             </div>
         </div>

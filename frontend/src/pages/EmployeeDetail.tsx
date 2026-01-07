@@ -89,15 +89,15 @@ const getEnpsColor = (score: number): string => {
 };
 
 const getEnpsLabel = (score: number): string => {
-    if (score >= 50) return 'Excellent';
-    if (score >= 30) return 'Good';
-    if (score >= 0) return 'Moderate';
-    return 'Needs Improvement';
+    if (score >= 50) return 'Excelente';
+    if (score >= 30) return 'Bom';
+    if (score >= 0) return 'Moderado';
+    return 'Precisa Melhorar';
 };
 
 const getComparisonIndicator = (value: number, reference: number): { text: string; color: string } => {
     const diff = value - reference;
-    if (Math.abs(diff) < 0.1) return { text: 'Same', color: 'text-gray-500' };
+    if (Math.abs(diff) < 0.1) return { text: 'Igual', color: 'text-gray-500' };
     if (diff > 0) return { text: `+${diff.toFixed(1)}`, color: 'text-green-600' };
     return { text: diff.toFixed(1), color: 'text-red-600' };
 };
@@ -116,7 +116,7 @@ export const EmployeeDetail: FC = () => {
                 setData(response.data);
             } catch (err) {
                 console.error('Error fetching employee data:', err);
-                setError('Failed to load employee data. Please ensure the backend is running.');
+                setError('Falha ao carregar dados do colaborador. Verifique se o backend está em execução.');
             } finally {
                 setLoading(false);
             }
@@ -132,7 +132,7 @@ export const EmployeeDetail: FC = () => {
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading employee data...</p>
+                    <p className="mt-4 text-gray-600">Carregando dados do colaborador...</p>
                 </div>
             </div>
         );
@@ -142,12 +142,12 @@ export const EmployeeDetail: FC = () => {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center bg-white p-8 rounded-xl shadow-sm border border-red-100">
-                    <p className="text-red-500 text-lg">{error || 'Employee not found.'}</p>
+                    <p className="text-red-500 text-lg">{error || 'Colaborador não encontrado.'}</p>
                     <Link
                         to="/employees"
                         className="mt-4 inline-block px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
                     >
-                        Back to Employees
+                        Voltar para Colaboradores
                     </Link>
                 </div>
             </div>
@@ -160,7 +160,7 @@ export const EmployeeDetail: FC = () => {
         labels: Object.keys(stats.averages).map(k => CATEGORY_LABELS[k] || k),
         datasets: [
             {
-                label: 'Employee',
+                label: 'Colaborador',
                 data: Object.values(stats.averages),
                 backgroundColor: 'rgba(99, 102, 241, 0.2)',
                 borderColor: 'rgb(99, 102, 241)',
@@ -168,7 +168,7 @@ export const EmployeeDetail: FC = () => {
                 pointBackgroundColor: 'rgb(99, 102, 241)',
             },
             {
-                label: 'Company Average',
+                label: 'Média da Empresa',
                 data: Object.keys(stats.averages).map(k => comparison.company.averages[k] || 0),
                 backgroundColor: 'rgba(156, 163, 175, 0.2)',
                 borderColor: 'rgb(156, 163, 175)',
@@ -176,7 +176,7 @@ export const EmployeeDetail: FC = () => {
                 pointBackgroundColor: 'rgb(156, 163, 175)',
             },
             ...(comparison.area ? [{
-                label: 'Area Average',
+                label: 'Média da Área',
                 data: Object.keys(stats.averages).map(k => comparison.area?.averages[k] || 0),
                 backgroundColor: 'rgba(34, 197, 94, 0.2)',
                 borderColor: 'rgb(34, 197, 94)',
@@ -210,21 +210,21 @@ export const EmployeeDetail: FC = () => {
         labels: Object.keys(stats.averages).map(k => CATEGORY_LABELS[k] || k),
         datasets: [
             {
-                label: 'Employee',
+                label: 'Colaborador',
                 data: Object.values(stats.averages),
                 backgroundColor: 'rgba(99, 102, 241, 0.7)',
                 borderColor: 'rgb(99, 102, 241)',
                 borderWidth: 1,
             },
             {
-                label: 'Company Average',
+                label: 'Média da Empresa',
                 data: Object.keys(stats.averages).map(k => comparison.company.averages[k] || 0),
                 backgroundColor: 'rgba(156, 163, 175, 0.7)',
                 borderColor: 'rgb(156, 163, 175)',
                 borderWidth: 1,
             },
             ...(comparison.area ? [{
-                label: 'Area Average',
+                label: 'Média da Área',
                 data: Object.keys(stats.averages).map(k => comparison.area?.averages[k] || 0),
                 backgroundColor: 'rgba(34, 197, 94, 0.7)',
                 borderColor: 'rgb(34, 197, 94)',
@@ -247,14 +247,14 @@ export const EmployeeDetail: FC = () => {
                 max: 5,
                 title: {
                     display: true,
-                    text: 'Score (1-5)',
+                    text: 'Pontuação (1-5)',
                 },
             },
         },
     };
 
     const getAreaName = () => {
-        if (!employee.area) return 'Not assigned';
+        if (!employee.area) return 'Não atribuído';
         return employee.area.n4Area || employee.area.n3Coordenacao || employee.area.n2Gerencia || employee.area.n1Diretoria || employee.area.n0Empresa;
     };
 
@@ -270,7 +270,7 @@ export const EmployeeDetail: FC = () => {
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                         </svg>
-                        Back to Employees
+                        Voltar para Colaboradores
                     </Link>
                 </div>
 
@@ -298,9 +298,9 @@ export const EmployeeDetail: FC = () => {
                                 {stats.total_surveys > 0 ? stats.enps.score.toFixed(0) : '-'}
                             </div>
                             <p className={`text-sm ${getEnpsColor(stats.enps.score)}`}>
-                                {stats.total_surveys > 0 ? getEnpsLabel(stats.enps.score) : 'No survey data'}
+                                {stats.total_surveys > 0 ? getEnpsLabel(stats.enps.score) : 'Sem dados'}
                             </p>
-                            <p className="text-xs text-gray-400 mt-1">eNPS Score</p>
+                            <p className="text-xs text-gray-400 mt-1">Pontuação eNPS</p>
                         </div>
                     </div>
                 </div>
@@ -308,47 +308,47 @@ export const EmployeeDetail: FC = () => {
                 {/* Employee Info Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <MetricsCard
-                        title="Area"
+                        title="Área"
                         value={getAreaName()}
                         description={employee.area?.n2Gerencia || ''}
                     />
                     <MetricsCard
-                        title="Tenure"
-                        value={employee.tempoDeEmpresa || 'Not specified'}
-                        description="Time at company"
+                        title="Tempo de Casa"
+                        value={employee.tempoDeEmpresa || 'Não especificado'}
+                        description="Tempo de empresa"
                     />
                     <MetricsCard
-                        title="Location"
-                        value={employee.localidade || 'Not specified'}
-                        description="Work location"
+                        title="Localidade"
+                        value={employee.localidade || 'Não especificado'}
+                        description="Local de trabalho"
                     />
                     <MetricsCard
-                        title="Surveys"
+                        title="Pesquisas"
                         value={stats.total_surveys}
-                        description="Responses submitted"
+                        description="Respostas enviadas"
                     />
                 </div>
 
                 {/* Demographics */}
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Employee Profile</h2>
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Perfil do Colaborador</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Gender</p>
-                            <p className="text-lg font-medium text-gray-900">{employee.genero || 'Not specified'}</p>
+                            <p className="text-sm text-gray-500">Gênero</p>
+                            <p className="text-lg font-medium text-gray-900">{employee.genero || 'Não especificado'}</p>
                         </div>
                         <div className="p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Generation</p>
-                            <p className="text-lg font-medium text-gray-900">{employee.geracao || 'Not specified'}</p>
+                            <p className="text-sm text-gray-500">Geração</p>
+                            <p className="text-lg font-medium text-gray-900">{employee.geracao || 'Não especificado'}</p>
                         </div>
                         <div className="p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Favorability</p>
+                            <p className="text-sm text-gray-500">Favorabilidade</p>
                             <p className="text-lg font-medium text-gray-900">
                                 {stats.total_surveys > 0 ? `${stats.favorability.toFixed(1)}%` : '-'}
                             </p>
                         </div>
                         <div className="p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Area Hierarchy</p>
+                            <p className="text-sm text-gray-500">Hierarquia da Área</p>
                             <p className="text-lg font-medium text-gray-900">{employee.area?.n1Diretoria || '-'}</p>
                         </div>
                     </div>
@@ -358,26 +358,26 @@ export const EmployeeDetail: FC = () => {
                     <>
                         {/* Key Metrics Comparison */}
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                            <h2 className="text-xl font-bold text-gray-900 mb-4">Key Metrics Comparison</h2>
+                            <h2 className="text-xl font-bold text-gray-900 mb-4">Comparação de Métricas Chave</h2>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-sm">
                                     <thead>
                                         <tr className="border-b border-gray-200">
-                                            <th className="text-left py-3 px-4 font-medium text-gray-600">Metric</th>
-                                            <th className="text-center py-3 px-4 font-medium text-indigo-600">Employee</th>
-                                            <th className="text-center py-3 px-4 font-medium text-gray-600">Company Avg</th>
-                                            <th className="text-center py-3 px-4 font-medium text-gray-600">vs Company</th>
+                                            <th className="text-left py-3 px-4 font-medium text-gray-600">Métrica</th>
+                                            <th className="text-center py-3 px-4 font-medium text-indigo-600">Colaborador</th>
+                                            <th className="text-center py-3 px-4 font-medium text-gray-600">Média Empresa</th>
+                                            <th className="text-center py-3 px-4 font-medium text-gray-600">vs Empresa</th>
                                             {comparison.area && (
                                                 <>
-                                                    <th className="text-center py-3 px-4 font-medium text-green-600">Area Avg</th>
-                                                    <th className="text-center py-3 px-4 font-medium text-gray-600">vs Area</th>
+                                                    <th className="text-center py-3 px-4 font-medium text-green-600">Média Área</th>
+                                                    <th className="text-center py-3 px-4 font-medium text-gray-600">vs Área</th>
                                                 </>
                                             )}
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr className="border-b border-gray-100 hover:bg-gray-50">
-                                            <td className="py-3 px-4 text-gray-900 font-medium">eNPS Score</td>
+                                            <td className="py-3 px-4 text-gray-900 font-medium">eNPS</td>
                                             <td className="py-3 px-4 text-center font-bold text-indigo-600">{stats.enps.score.toFixed(1)}</td>
                                             <td className="py-3 px-4 text-center">{comparison.company.enps.score.toFixed(1)}</td>
                                             <td className="py-3 px-4 text-center">
@@ -397,7 +397,7 @@ export const EmployeeDetail: FC = () => {
                                             )}
                                         </tr>
                                         <tr className="border-b border-gray-100 hover:bg-gray-50">
-                                            <td className="py-3 px-4 text-gray-900 font-medium">Favorability</td>
+                                            <td className="py-3 px-4 text-gray-900 font-medium">Favorabilidade</td>
                                             <td className="py-3 px-4 text-center font-bold text-indigo-600">{stats.favorability.toFixed(1)}%</td>
                                             <td className="py-3 px-4 text-center">{comparison.company.favorability.toFixed(1)}%</td>
                                             <td className="py-3 px-4 text-center">
@@ -425,7 +425,7 @@ export const EmployeeDetail: FC = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                             {/* Radar Chart */}
                             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <h2 className="text-xl font-bold text-gray-900 mb-4">Survey Scores Comparison (Radar)</h2>
+                                <h2 className="text-xl font-bold text-gray-900 mb-4">Comparação de Pontuações (Radar)</h2>
                                 <div className="h-80">
                                     <Radar data={radarData} options={radarOptions} />
                                 </div>
@@ -433,7 +433,7 @@ export const EmployeeDetail: FC = () => {
 
                             {/* Bar Chart Comparison */}
                             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <h2 className="text-xl font-bold text-gray-900 mb-4">Survey Scores Comparison (Bar)</h2>
+                                <h2 className="text-xl font-bold text-gray-900 mb-4">Comparação de Pontuações (Barra)</h2>
                                 <div className="h-80">
                                     <Bar data={comparisonBarData} options={comparisonBarOptions} />
                                 </div>
@@ -442,22 +442,22 @@ export const EmployeeDetail: FC = () => {
 
                         {/* Detailed Category Comparison */}
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                            <h2 className="text-xl font-bold text-gray-900 mb-4">Detailed Category Scores</h2>
+                            <h2 className="text-xl font-bold text-gray-900 mb-4">Pontuações Detalhadas por Categoria</h2>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-sm">
                                     <thead>
                                         <tr className="border-b border-gray-200">
-                                            <th className="text-left py-3 px-4 font-medium text-gray-600">Category</th>
-                                            <th className="text-center py-3 px-4 font-medium text-indigo-600">Employee</th>
-                                            <th className="text-center py-3 px-4 font-medium text-gray-600">Company</th>
-                                            <th className="text-center py-3 px-4 font-medium text-gray-600">vs Company</th>
+                                            <th className="text-left py-3 px-4 font-medium text-gray-600">Categoria</th>
+                                            <th className="text-center py-3 px-4 font-medium text-indigo-600">Colaborador</th>
+                                            <th className="text-center py-3 px-4 font-medium text-gray-600">Empresa</th>
+                                            <th className="text-center py-3 px-4 font-medium text-gray-600">vs Empresa</th>
                                             {comparison.area && (
                                                 <>
-                                                    <th className="text-center py-3 px-4 font-medium text-green-600">Area</th>
-                                                    <th className="text-center py-3 px-4 font-medium text-gray-600">vs Area</th>
+                                                    <th className="text-center py-3 px-4 font-medium text-green-600">Área</th>
+                                                    <th className="text-center py-3 px-4 font-medium text-gray-600">vs Área</th>
                                                 </>
                                             )}
-                                            <th className="text-left py-3 px-4 font-medium text-gray-600">Performance</th>
+                                            <th className="text-left py-3 px-4 font-medium text-gray-600">Desempenho</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -508,10 +508,10 @@ export const EmployeeDetail: FC = () => {
 
                         {/* Insights Section */}
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                            <h2 className="text-xl font-bold text-gray-900 mb-4">Key Insights</h2>
+                            <h2 className="text-xl font-bold text-gray-900 mb-4">Principais Insights</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                                    <h3 className="text-lg font-semibold text-green-800 mb-2">Strengths</h3>
+                                    <h3 className="text-lg font-semibold text-green-800 mb-2">Pontos Fortes</h3>
                                     <ul className="space-y-2">
                                         {Object.entries(stats.averages)
                                             .filter(([, v]) => v >= 4)
@@ -524,12 +524,12 @@ export const EmployeeDetail: FC = () => {
                                                 </li>
                                             ))}
                                         {Object.entries(stats.averages).filter(([, v]) => v >= 4).length === 0 && (
-                                            <li className="text-sm text-green-700">No categories with score 4 or above</li>
+                                            <li className="text-sm text-green-700">Nenhuma categoria com pontuação 4 ou superior</li>
                                         )}
                                     </ul>
                                 </div>
                                 <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-                                    <h3 className="text-lg font-semibold text-amber-800 mb-2">Areas for Development</h3>
+                                    <h3 className="text-lg font-semibold text-amber-800 mb-2">Áreas de Desenvolvimento</h3>
                                     <ul className="space-y-2">
                                         {Object.entries(stats.averages)
                                             .filter(([, v]) => v < 4)
@@ -542,7 +542,7 @@ export const EmployeeDetail: FC = () => {
                                                 </li>
                                             ))}
                                         {Object.entries(stats.averages).filter(([, v]) => v < 4).length === 0 && (
-                                            <li className="text-sm text-amber-700">All categories are at or above target</li>
+                                            <li className="text-sm text-amber-700">Todas as categorias estão na meta ou acima</li>
                                         )}
                                     </ul>
                                 </div>
@@ -556,13 +556,13 @@ export const EmployeeDetail: FC = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
-                        <h3 className="text-xl font-semibold text-gray-700 mb-2">No Survey Data Available</h3>
-                        <p className="text-gray-500">This employee has not submitted any survey responses yet.</p>
+                        <h3 className="text-xl font-semibold text-gray-700 mb-2">Nenhum Dado de Pesquisa Disponível</h3>
+                        <p className="text-gray-500">Este colaborador ainda não enviou nenhuma resposta à pesquisa.</p>
                     </div>
                 )}
 
                 <footer className="mt-8 text-center text-sm text-gray-400">
-                    <p>Employee profile and survey analysis for {employee.nome}</p>
+                    <p>Perfil do colaborador e análise de pesquisa para {employee.nome}</p>
                 </footer>
             </div>
         </div>

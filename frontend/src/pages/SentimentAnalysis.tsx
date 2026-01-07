@@ -115,7 +115,7 @@ export const SentimentAnalysis: FC = () => {
                 setCorrelations(correlationRes.data);
             } catch (err) {
                 console.error('Error fetching sentiment data:', err);
-                setError('Failed to load sentiment data. Please ensure the backend is running.');
+                setError('Falha ao carregar dados de sentimento. Por favor verifique se o backend está rodando.');
             } finally {
                 setLoading(false);
             }
@@ -142,7 +142,7 @@ export const SentimentAnalysis: FC = () => {
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading sentiment analysis...</p>
+                    <p className="mt-4 text-gray-600">Carregando análise de sentimentos...</p>
                 </div>
             </div>
         );
@@ -152,12 +152,12 @@ export const SentimentAnalysis: FC = () => {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center bg-white p-8 rounded-xl shadow-sm border border-red-100">
-                    <p className="text-red-500 text-lg">{error || 'Error loading data.'}</p>
+                    <p className="text-red-500 text-lg">{error || 'Erro ao carregar dados.'}</p>
                     <button
                         onClick={() => window.location.reload()}
                         className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
                     >
-                        Retry
+                        Tentar novamente
                     </button>
                 </div>
             </div>
@@ -165,7 +165,7 @@ export const SentimentAnalysis: FC = () => {
     }
 
     const distributionData = {
-        labels: ['Positive', 'Neutral', 'Negative'],
+        labels: ['Positivo', 'Neutro', 'Negativo'],
         datasets: [
             {
                 data: [summary.distribution.positive, summary.distribution.neutral, summary.distribution.negative],
@@ -209,17 +209,17 @@ export const SentimentAnalysis: FC = () => {
         labels: summary.byField.map(f => f.label),
         datasets: [
             {
-                label: 'Average Sentiment',
+                label: 'Sentimento Médio',
                 data: summary.byField.map(f => f.averageSentiment),
                 backgroundColor: summary.byField.map(f =>
                     f.averageSentiment > 0.1 ? 'rgba(34, 197, 94, 0.6)' :
-                    f.averageSentiment < -0.1 ? 'rgba(239, 68, 68, 0.6)' :
-                    'rgba(156, 163, 175, 0.6)'
+                        f.averageSentiment < -0.1 ? 'rgba(239, 68, 68, 0.6)' :
+                            'rgba(156, 163, 175, 0.6)'
                 ),
                 borderColor: summary.byField.map(f =>
                     f.averageSentiment > 0.1 ? 'rgb(34, 197, 94)' :
-                    f.averageSentiment < -0.1 ? 'rgb(239, 68, 68)' :
-                    'rgb(156, 163, 175)'
+                        f.averageSentiment < -0.1 ? 'rgb(239, 68, 68)' :
+                            'rgb(156, 163, 175)'
                 ),
                 borderWidth: 1,
             },
@@ -240,7 +240,7 @@ export const SentimentAnalysis: FC = () => {
                 max: 1,
                 title: {
                     display: true,
-                    text: 'Sentiment Score (-1 to +1)'
+                    text: 'Pontuação de Sentimento (-1 a +1)'
                 }
             }
         }
@@ -250,7 +250,7 @@ export const SentimentAnalysis: FC = () => {
         labels: correlations.map(c => c.label),
         datasets: [
             {
-                label: 'Correlation',
+                label: 'Correlação',
                 data: correlations.map(c => c.correlation),
                 backgroundColor: correlations.map(c =>
                     c.correlation > 0 ? 'rgba(99, 102, 241, 0.6)' : 'rgba(239, 68, 68, 0.6)'
@@ -277,7 +277,7 @@ export const SentimentAnalysis: FC = () => {
                 max: 1,
                 title: {
                     display: true,
-                    text: 'Correlation Coefficient'
+                    text: 'Coeficiente de Correlação'
                 }
             }
         }
@@ -287,35 +287,35 @@ export const SentimentAnalysis: FC = () => {
         <div className="min-h-screen bg-gray-50 p-8">
             <div className="max-w-7xl mx-auto">
                 <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">Sentiment Analysis</h1>
-                    <p className="text-gray-500 mt-2">Analysis of employee comments using Portuguese NLP lexicon-based approach</p>
+                    <h1 className="text-3xl font-bold text-gray-900">Análise de Sentimentos</h1>
+                    <p className="text-gray-500 mt-2">Análise de comentários dos colaboradores usando processamento de linguagem natural em Português</p>
                 </header>
 
                 {/* Summary Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <p className="text-sm font-medium text-gray-500">Total Comments</p>
+                        <p className="text-sm font-medium text-gray-500">Total de Comentários</p>
                         <p className="text-3xl font-bold text-gray-900 mt-2">{summary.totalComments.toLocaleString()}</p>
                     </div>
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <p className="text-sm font-medium text-gray-500">Avg. Sentiment</p>
+                        <p className="text-sm font-medium text-gray-500">Sentimento Médio</p>
                         <p className={`text-3xl font-bold mt-2 ${summary.averageSentiment > 0 ? 'text-green-600' : summary.averageSentiment < 0 ? 'text-red-600' : 'text-gray-600'}`}>
                             {summary.averageSentiment > 0 ? '+' : ''}{summary.averageSentiment.toFixed(3)}
                         </p>
                     </div>
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <p className="text-sm font-medium text-gray-500">Positive</p>
+                        <p className="text-sm font-medium text-gray-500">Positivo</p>
                         <p className="text-3xl font-bold text-green-600 mt-2">
                             {((summary.distribution.positive / summary.totalComments) * 100).toFixed(1)}%
                         </p>
-                        <p className="text-sm text-gray-400">{summary.distribution.positive} comments</p>
+                        <p className="text-sm text-gray-400">{summary.distribution.positive} comentários</p>
                     </div>
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <p className="text-sm font-medium text-gray-500">Negative</p>
+                        <p className="text-sm font-medium text-gray-500">Negativo</p>
                         <p className="text-3xl font-bold text-red-600 mt-2">
                             {((summary.distribution.negative / summary.totalComments) * 100).toFixed(1)}%
                         </p>
-                        <p className="text-sm text-gray-400">{summary.distribution.negative} comments</p>
+                        <p className="text-sm text-gray-400">{summary.distribution.negative} comentários</p>
                     </div>
                 </div>
 
@@ -324,18 +324,17 @@ export const SentimentAnalysis: FC = () => {
                     <div className="border-b border-gray-200">
                         <nav className="flex -mb-px">
                             {[
-                                { id: 'overview', label: 'Overview' },
-                                { id: 'fields', label: 'By Field' },
-                                { id: 'comments', label: 'Sample Comments' },
+                                { id: 'overview', label: 'Visão Geral' },
+                                { id: 'fields', label: 'Por Campo' },
+                                { id: 'comments', label: 'Amostra de Comentários' },
                             ].map(tab => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                                    className={`px-6 py-4 text-sm font-medium border-b-2 ${
-                                        activeTab === tab.id
+                                    className={`px-6 py-4 text-sm font-medium border-b-2 ${activeTab === tab.id
                                             ? 'border-indigo-600 text-indigo-600'
                                             : 'border-transparent text-gray-500 hover:text-gray-700'
-                                    }`}
+                                        }`}
                                 >
                                     {tab.label}
                                 </button>
@@ -347,25 +346,25 @@ export const SentimentAnalysis: FC = () => {
                         {activeTab === 'overview' && (
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 <div>
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Sentiment Distribution</h3>
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Distribuição de Sentimento</h3>
                                     <div className="h-64">
                                         <Doughnut data={distributionData} options={distributionOptions} />
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Sentiment vs. Score Correlation</h3>
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Correlação Sentimento vs. Pontuação</h3>
                                     <div className="h-64">
                                         <Bar data={correlationBarData} options={correlationBarOptions} />
                                     </div>
                                     <p className="text-sm text-gray-500 mt-2">
-                                        Higher correlation = sentiment aligns with numeric score
+                                        Maior correlação = sentimento alinhado com a pontuação numérica
                                     </p>
                                 </div>
                                 <div className="lg:col-span-2">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Word Frequency</h3>
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Frequência de Palavras</h3>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <h4 className="text-sm font-medium text-green-600 mb-2">Top Positive Words</h4>
+                                            <h4 className="text-sm font-medium text-green-600 mb-2">Principais Palavras Positivas</h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {summary.wordFrequency.positive.slice(0, 15).map((w, i) => (
                                                     <span key={i} className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-sm">
@@ -375,7 +374,7 @@ export const SentimentAnalysis: FC = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            <h4 className="text-sm font-medium text-red-600 mb-2">Top Negative Words</h4>
+                                            <h4 className="text-sm font-medium text-red-600 mb-2">Principais Palavras Negativas</h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {summary.wordFrequency.negative.slice(0, 15).map((w, i) => (
                                                     <span key={i} className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-sm">
@@ -391,7 +390,7 @@ export const SentimentAnalysis: FC = () => {
 
                         {activeTab === 'fields' && (
                             <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-4">Sentiment by Comment Field</h3>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-4">Sentimento por Campo de Comentário</h3>
                                 <div className="h-80 mb-6">
                                     <Bar data={fieldBarData} options={fieldBarOptions} />
                                 </div>
@@ -399,12 +398,12 @@ export const SentimentAnalysis: FC = () => {
                                     <table className="w-full text-sm">
                                         <thead>
                                             <tr className="border-b border-gray-200">
-                                                <th className="text-left py-3 px-4 font-medium text-gray-600">Field</th>
-                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Comments</th>
-                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Avg. Sentiment</th>
-                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Positive</th>
-                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Neutral</th>
-                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Negative</th>
+                                                <th className="text-left py-3 px-4 font-medium text-gray-600">Campo</th>
+                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Comentários</th>
+                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Sentimento Médio</th>
+                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Positivo</th>
+                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Neutro</th>
+                                                <th className="text-center py-3 px-4 font-medium text-gray-600">Negativo</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -412,10 +411,9 @@ export const SentimentAnalysis: FC = () => {
                                                 <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
                                                     <td className="py-3 px-4 text-gray-900 font-medium">{field.label}</td>
                                                     <td className="py-3 px-4 text-center">{field.totalComments}</td>
-                                                    <td className={`py-3 px-4 text-center font-medium ${
-                                                        field.averageSentiment > 0.1 ? 'text-green-600' :
-                                                        field.averageSentiment < -0.1 ? 'text-red-600' : 'text-gray-600'
-                                                    }`}>
+                                                    <td className={`py-3 px-4 text-center font-medium ${field.averageSentiment > 0.1 ? 'text-green-600' :
+                                                            field.averageSentiment < -0.1 ? 'text-red-600' : 'text-gray-600'
+                                                        }`}>
                                                         {field.averageSentiment > 0 ? '+' : ''}{field.averageSentiment.toFixed(3)}
                                                     </td>
                                                     <td className="py-3 px-4 text-center text-green-600">{field.distribution.positive}</td>
@@ -432,14 +430,14 @@ export const SentimentAnalysis: FC = () => {
                         {activeTab === 'comments' && (
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 <div>
-                                    <h3 className="text-lg font-semibold text-green-600 mb-4">Top Positive Comments</h3>
+                                    <h3 className="text-lg font-semibold text-green-600 mb-4">Principais Comentários Positivos</h3>
                                     <div className="space-y-3">
                                         {summary.topPositive.slice(0, 5).map((comment, i) => (
                                             <div key={i} className="p-4 bg-green-50 rounded-lg border border-green-100">
                                                 <div className="flex items-center justify-between mb-2">
                                                     <span className="text-xs font-medium text-green-700">{comment.fieldLabel}</span>
                                                     <span className="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full">
-                                                        Score: {comment.sentiment.score.toFixed(2)}
+                                                        Pontuação: {comment.sentiment.score.toFixed(2)}
                                                     </span>
                                                 </div>
                                                 <p className="text-sm text-gray-700">{comment.text}</p>
@@ -448,14 +446,14 @@ export const SentimentAnalysis: FC = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-red-600 mb-4">Top Negative Comments</h3>
+                                    <h3 className="text-lg font-semibold text-red-600 mb-4">Principais Comentários Negativos</h3>
                                     <div className="space-y-3">
                                         {summary.topNegative.slice(0, 5).map((comment, i) => (
                                             <div key={i} className="p-4 bg-red-50 rounded-lg border border-red-100">
                                                 <div className="flex items-center justify-between mb-2">
                                                     <span className="text-xs font-medium text-red-700">{comment.fieldLabel}</span>
                                                     <span className="text-xs bg-red-200 text-red-800 px-2 py-1 rounded-full">
-                                                        Score: {comment.sentiment.score.toFixed(2)}
+                                                        Pontuação: {comment.sentiment.score.toFixed(2)}
                                                     </span>
                                                 </div>
                                                 <p className="text-sm text-gray-700">{comment.text}</p>
@@ -470,13 +468,13 @@ export const SentimentAnalysis: FC = () => {
 
                 {/* Custom Text Analysis */}
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Try It: Analyze Custom Text</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Experimente: Analise um Texto Personalizado</h3>
                     <div className="flex gap-4">
                         <input
                             type="text"
                             value={customText}
                             onChange={(e) => setCustomText(e.target.value)}
-                            placeholder="Enter Portuguese text to analyze..."
+                            placeholder="Digite um texto em português para analisar..."
                             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                             onKeyPress={(e) => e.key === 'Enter' && analyzeCustomText()}
                         />
@@ -485,7 +483,7 @@ export const SentimentAnalysis: FC = () => {
                             disabled={analyzingText || !customText.trim()}
                             className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {analyzingText ? 'Analyzing...' : 'Analyze'}
+                            {analyzingText ? 'Analisando...' : 'Analisar'}
                         </button>
                     </div>
                     {customResult && (
@@ -497,10 +495,10 @@ export const SentimentAnalysis: FC = () => {
                                         {customResult.label.toUpperCase()}
                                     </span>
                                     <p className="text-sm text-gray-600 mt-1">
-                                        Score: <span className="font-medium">{customResult.score.toFixed(3)}</span> |
-                                        Confidence: <span className="font-medium">{(customResult.confidence * 100).toFixed(0)}%</span> |
-                                        Positive words: <span className="text-green-600 font-medium">{customResult.positiveCount}</span> |
-                                        Negative words: <span className="text-red-600 font-medium">{customResult.negativeCount}</span>
+                                        Pontuação: <span className="font-medium">{customResult.score.toFixed(3)}</span> |
+                                        Confiança: <span className="font-medium">{(customResult.confidence * 100).toFixed(0)}%</span> |
+                                        Palavras positivas: <span className="text-green-600 font-medium">{customResult.positiveCount}</span> |
+                                        Palavras negativas: <span className="text-red-600 font-medium">{customResult.negativeCount}</span>
                                     </p>
                                 </div>
                             </div>
@@ -509,8 +507,8 @@ export const SentimentAnalysis: FC = () => {
                 </div>
 
                 <footer className="mt-8 text-center text-sm text-gray-400">
-                    <p>Analysis based on {summary.totalComments.toLocaleString()} comments from survey responses</p>
-                    <p className="mt-1">Using Portuguese lexicon-based sentiment analysis with negation and intensifier handling</p>
+                    <p>Análise baseada em {summary.totalComments.toLocaleString()} comentários de respostas da pesquisa</p>
+                    <p className="mt-1">Usando análise de sentimento baseada em léxico em Português com tratamento de negação e intensificadores</p>
                 </footer>
             </div>
         </div>

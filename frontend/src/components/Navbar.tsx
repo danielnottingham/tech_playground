@@ -24,37 +24,37 @@ export const Navbar: FC = () => {
                                 to="/"
                                 className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/')}`}
                             >
-                                Company
+                                Empresa
                             </Link>
                             <Link
                                 to="/areas"
                                 className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/areas')}`}
                             >
-                                Areas
+                                Áreas
                             </Link>
                             <Link
                                 to="/employees"
                                 className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/employees')}`}
                             >
-                                Employees
+                                Colaboradores
                             </Link>
                             <Link
                                 to="/eda"
                                 className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/eda')}`}
                             >
-                                EDA
+                                Análise Exploratória
                             </Link>
                             <Link
                                 to="/sentiment"
                                 className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/sentiment')}`}
                             >
-                                Sentiment
+                                Sentimento
                             </Link>
                             <Link
                                 to="/reports"
                                 className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/reports')}`}
                             >
-                                Reports
+                                Relatórios
                             </Link>
                         </div>
                     </div>

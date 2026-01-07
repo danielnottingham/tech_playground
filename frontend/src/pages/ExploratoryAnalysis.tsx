@@ -131,7 +131,7 @@ export const ExploratoryAnalysis: FC = () => {
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading exploratory analysis...</p>
+                    <p className="mt-4 text-gray-600">Carregando análise exploratória...</p>
                 </div>
             </div>
         );
@@ -141,12 +141,12 @@ export const ExploratoryAnalysis: FC = () => {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center bg-white p-8 rounded-xl shadow-sm border border-red-100">
-                    <p className="text-red-500 text-lg">{error || 'Error loading data.'}</p>
+                    <p className="text-red-500 text-lg">{error || 'Erro ao carregar dados.'}</p>
                     <button
                         onClick={() => window.location.reload()}
                         className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
                     >
-                        Retry
+                        Tentar novamente
                     </button>
                 </div>
             </div>
@@ -156,7 +156,7 @@ export const ExploratoryAnalysis: FC = () => {
     const enpsHistogramData = responseDistribution ? {
         labels: Object.keys(responseDistribution.enps).map(k => k),
         datasets: [{
-            label: 'Responses',
+            label: 'Respostas',
             data: Object.values(responseDistribution.enps),
             backgroundColor: Object.keys(responseDistribution.enps).map(k => {
                 const score = parseInt(k);
@@ -177,7 +177,7 @@ export const ExploratoryAnalysis: FC = () => {
     const demographicChartData = demographicData ? {
         labels: demographicData.distribution.map(d => d.group),
         datasets: [{
-            label: 'Count',
+            label: 'Contagem',
             data: demographicData.distribution.map(d => d.count),
             backgroundColor: 'rgba(99, 102, 241, 0.6)',
             borderColor: 'rgb(99, 102, 241)',
@@ -188,7 +188,7 @@ export const ExploratoryAnalysis: FC = () => {
     const demographicEnpsData = demographicData ? {
         labels: demographicData.distribution.map(d => d.group),
         datasets: [{
-            label: 'eNPS Score',
+            label: 'Pontuação eNPS',
             data: demographicData.distribution.map(d => d.enps.score),
             backgroundColor: demographicData.distribution.map(d => {
                 if (d.enps.score >= 50) return 'rgba(34, 197, 94, 0.7)';
@@ -238,69 +238,69 @@ export const ExploratoryAnalysis: FC = () => {
     };
 
     const dimensionLabels = {
-        genero: 'Gender',
-        geracao: 'Generation',
-        tempoDeEmpresa: 'Tenure',
+        genero: 'Gênero',
+        geracao: 'Geração',
+        tempoDeEmpresa: 'Tempo de Casa',
     };
 
     return (
         <div className="min-h-screen bg-gray-50 p-8">
             <div className="max-w-7xl mx-auto">
                 <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">Exploratory Data Analysis</h1>
-                    <p className="text-gray-500 mt-2">In-depth statistical analysis and data exploration</p>
+                    <h1 className="text-3xl font-bold text-gray-900">Análise Exploratória de Dados</h1>
+                    <p className="text-gray-500 mt-2">Análise estatística aprofundada e exploração de dados</p>
                 </header>
 
                 {/* Overview Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <MetricsCard
-                        title="Total Employees"
+                        title="Total de Colaboradores"
                         value={summary.overview.totalEmployees}
-                        description="In the dataset"
+                        description="No conjunto de dados"
                     />
                     <MetricsCard
-                        title="Total Surveys"
+                        title="Total de Pesquisas"
                         value={summary.overview.totalSurveys}
-                        description="Responses collected"
+                        description="Respostas coletadas"
                     />
                     <MetricsCard
-                        title="Total Areas"
+                        title="Total de Áreas"
                         value={summary.overview.totalAreas}
-                        description="Organizational units"
+                        description="Unidades organizacionais"
                     />
                     <MetricsCard
-                        title="Response Rate"
+                        title="Taxa de Resposta"
                         value={`${summary.overview.responseRate}%`}
-                        description="Survey completion"
+                        description="Conclusão da pesquisa"
                     />
                 </div>
 
                 {/* eNPS Statistics */}
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">eNPS Summary Statistics</h2>
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Resumidas do eNPS</h2>
                     <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
                         <div className="text-center p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Mean</p>
+                            <p className="text-sm text-gray-500">Média</p>
                             <p className="text-2xl font-bold text-indigo-600">{summary.enpsStats.mean}</p>
                         </div>
                         <div className="text-center p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Median</p>
+                            <p className="text-sm text-gray-500">Mediana</p>
                             <p className="text-2xl font-bold text-indigo-600">{summary.enpsStats.median}</p>
                         </div>
                         <div className="text-center p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Min</p>
+                            <p className="text-sm text-gray-500">Mín</p>
                             <p className="text-2xl font-bold text-red-600">{summary.enpsStats.min}</p>
                         </div>
                         <div className="text-center p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Max</p>
+                            <p className="text-sm text-gray-500">Máx</p>
                             <p className="text-2xl font-bold text-green-600">{summary.enpsStats.max}</p>
                         </div>
                         <div className="text-center p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Std Dev</p>
+                            <p className="text-sm text-gray-500">Desv Pad</p>
                             <p className="text-2xl font-bold text-gray-600">{summary.enpsStats.stdDev}</p>
                         </div>
                         <div className="text-center p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-500">Count</p>
+                            <p className="text-sm text-gray-500">Contagem</p>
                             <p className="text-2xl font-bold text-gray-600">{summary.enpsStats.count}</p>
                         </div>
                     </div>
@@ -309,7 +309,7 @@ export const ExploratoryAnalysis: FC = () => {
                 {/* eNPS Distribution Histogram */}
                 {enpsHistogramData && (
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">eNPS Response Distribution</h2>
+                        <h2 className="text-xl font-bold text-gray-900 mb-4">Distribuição de Respostas eNPS</h2>
                         <div className="h-64">
                             <Bar
                                 data={enpsHistogramData}
@@ -318,21 +318,21 @@ export const ExploratoryAnalysis: FC = () => {
                                     maintainAspectRatio: false,
                                     plugins: { legend: { display: false } },
                                     scales: {
-                                        x: { title: { display: true, text: 'eNPS Score (0-10)' } },
-                                        y: { beginAtZero: true, title: { display: true, text: 'Number of Responses' } },
+                                        x: { title: { display: true, text: 'Pontuação eNPS (0-10)' } },
+                                        y: { beginAtZero: true, title: { display: true, text: 'Número de Respostas' } },
                                     },
                                 }}
                             />
                         </div>
                         <div className="flex justify-center gap-4 mt-4 text-sm">
                             <span className="flex items-center gap-2">
-                                <span className="w-4 h-4 bg-red-500 rounded"></span> Detractors (0-6)
+                                <span className="w-4 h-4 bg-red-500 rounded"></span> Detratores (0-6)
                             </span>
                             <span className="flex items-center gap-2">
-                                <span className="w-4 h-4 bg-yellow-500 rounded"></span> Passives (7-8)
+                                <span className="w-4 h-4 bg-yellow-500 rounded"></span> Neutros (7-8)
                             </span>
                             <span className="flex items-center gap-2">
-                                <span className="w-4 h-4 bg-green-500 rounded"></span> Promoters (9-10)
+                                <span className="w-4 h-4 bg-green-500 rounded"></span> Promotores (9-10)
                             </span>
                         </div>
                     </div>
@@ -340,18 +340,18 @@ export const ExploratoryAnalysis: FC = () => {
 
                 {/* Likert Scale Statistics Table */}
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Likert Scale Statistics by Category</h2>
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Estatísticas da Escala Likert por Categoria</h2>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
                                 <tr className="border-b border-gray-200">
-                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Category</th>
-                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Mean</th>
-                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Median</th>
-                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Min</th>
-                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Max</th>
-                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Std Dev</th>
-                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Count</th>
+                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Categoria</th>
+                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Média</th>
+                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Mediana</th>
+                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Mín</th>
+                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Máx</th>
+                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Desv Pad</th>
+                                    <th className="text-center py-3 px-4 font-medium text-gray-600">Contagem</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -373,11 +373,11 @@ export const ExploratoryAnalysis: FC = () => {
 
                 {/* Demographics Section */}
                 <div className="mb-8">
-                    <h2 className="text-xl font-bold text-gray-900 mb-4">Demographic Distribution</h2>
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Distribuição Demográfica</h2>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {genderPieData && (
                             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">By Gender</h3>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Por Gênero</h3>
                                 <div className="h-64">
                                     <Doughnut
                                         data={genderPieData}
@@ -392,7 +392,7 @@ export const ExploratoryAnalysis: FC = () => {
                         )}
                         {generationPieData && (
                             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">By Generation</h3>
+                                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Por Geração</h3>
                                 <div className="h-64">
                                     <Doughnut
                                         data={generationPieData}
@@ -411,17 +411,16 @@ export const ExploratoryAnalysis: FC = () => {
                 {/* Demographics Analysis */}
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
                     <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-xl font-bold text-gray-900">Analysis by Demographic Dimension</h2>
+                        <h2 className="text-xl font-bold text-gray-900">Análise por Dimensão Demográfica</h2>
                         <div className="flex gap-2">
                             {(['genero', 'geracao', 'tempoDeEmpresa'] as const).map((dim) => (
                                 <button
                                     key={dim}
                                     onClick={() => setSelectedDimension(dim)}
-                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                        selectedDimension === dim
+                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${selectedDimension === dim
                                             ? 'bg-indigo-600 text-white'
                                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                    }`}
+                                        }`}
                                 >
                                     {dimensionLabels[dim]}
                                 </button>
@@ -433,7 +432,7 @@ export const ExploratoryAnalysis: FC = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {demographicChartData && (
                                 <div>
-                                    <h3 className="text-lg font-semibold text-gray-700 mb-3">Distribution Count</h3>
+                                    <h3 className="text-lg font-semibold text-gray-700 mb-3">Contagem da Distribuição</h3>
                                     <div className="h-64">
                                         <Bar
                                             data={demographicChartData}
@@ -449,7 +448,7 @@ export const ExploratoryAnalysis: FC = () => {
                             )}
                             {demographicEnpsData && (
                                 <div>
-                                    <h3 className="text-lg font-semibold text-gray-700 mb-3">eNPS by {dimensionLabels[selectedDimension]}</h3>
+                                    <h3 className="text-lg font-semibold text-gray-700 mb-3">eNPS por {dimensionLabels[selectedDimension]}</h3>
                                     <div className="h-64">
                                         <Bar
                                             data={demographicEnpsData}
@@ -461,7 +460,7 @@ export const ExploratoryAnalysis: FC = () => {
                                                     y: {
                                                         min: -100,
                                                         max: 100,
-                                                        title: { display: true, text: 'eNPS Score' },
+                                                        title: { display: true, text: 'Pontuação eNPS' },
                                                     },
                                                 },
                                             }}
@@ -478,10 +477,10 @@ export const ExploratoryAnalysis: FC = () => {
                                 <thead>
                                     <tr className="border-b border-gray-200">
                                         <th className="text-left py-3 px-4 font-medium text-gray-600">{dimensionLabels[selectedDimension]}</th>
-                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Count</th>
-                                        <th className="text-center py-3 px-4 font-medium text-gray-600">% of Total</th>
-                                        <th className="text-center py-3 px-4 font-medium text-gray-600">eNPS Score</th>
-                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Favorability</th>
+                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Contagem</th>
+                                        <th className="text-center py-3 px-4 font-medium text-gray-600">% do Total</th>
+                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Pontuação eNPS</th>
+                                        <th className="text-center py-3 px-4 font-medium text-gray-600">Favorabilidade</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -493,11 +492,10 @@ export const ExploratoryAnalysis: FC = () => {
                                                 {((item.count / demographicData.total) * 100).toFixed(1)}%
                                             </td>
                                             <td className="py-3 px-4 text-center">
-                                                <span className={`px-2 py-1 rounded ${
-                                                    item.enps.score >= 50 ? 'bg-green-100 text-green-700' :
-                                                    item.enps.score >= 0 ? 'bg-yellow-100 text-yellow-700' :
-                                                    'bg-red-100 text-red-700'
-                                                }`}>
+                                                <span className={`px-2 py-1 rounded ${item.enps.score >= 50 ? 'bg-green-100 text-green-700' :
+                                                        item.enps.score >= 0 ? 'bg-yellow-100 text-yellow-700' :
+                                                            'bg-red-100 text-red-700'
+                                                    }`}>
                                                     {item.enps.score.toFixed(1)}
                                                 </span>
                                             </td>
@@ -513,9 +511,9 @@ export const ExploratoryAnalysis: FC = () => {
                 {/* Correlation Matrix */}
                 {correlations && (
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Correlation Matrix</h2>
+                        <h2 className="text-xl font-bold text-gray-900 mb-4">Matriz de Correlação</h2>
                         <p className="text-sm text-gray-500 mb-4">
-                            Shows the correlation between different survey dimensions. Green indicates positive correlation, red indicates negative.
+                            Mostra a correlação entre diferentes dimensões da pesquisa. Verde indica correlação positiva, vermelho indica negativa.
                         </p>
                         <div className="overflow-x-auto">
                             <table className="w-full text-xs">
@@ -552,19 +550,19 @@ export const ExploratoryAnalysis: FC = () => {
                         </div>
                         <div className="flex justify-center gap-4 mt-4 text-xs">
                             <span className="flex items-center gap-1">
-                                <span className="w-4 h-4 bg-green-600 rounded"></span> Strong +
+                                <span className="w-4 h-4 bg-green-600 rounded"></span> Forte +
                             </span>
                             <span className="flex items-center gap-1">
-                                <span className="w-4 h-4 bg-green-400 rounded"></span> Moderate +
+                                <span className="w-4 h-4 bg-green-400 rounded"></span> Moderada +
                             </span>
                             <span className="flex items-center gap-1">
-                                <span className="w-4 h-4 bg-gray-100 border rounded"></span> Weak/None
+                                <span className="w-4 h-4 bg-gray-100 border rounded"></span> Fraca/Nenhuma
                             </span>
                             <span className="flex items-center gap-1">
-                                <span className="w-4 h-4 bg-red-400 rounded"></span> Moderate -
+                                <span className="w-4 h-4 bg-red-400 rounded"></span> Moderada -
                             </span>
                             <span className="flex items-center gap-1">
-                                <span className="w-4 h-4 bg-red-600 rounded"></span> Strong -
+                                <span className="w-4 h-4 bg-red-600 rounded"></span> Forte -
                             </span>
                         </div>
                     </div>
@@ -573,7 +571,7 @@ export const ExploratoryAnalysis: FC = () => {
                 {/* Response Distribution by Likert Category */}
                 {responseDistribution && (
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Response Distribution by Category (Likert Scale)</h2>
+                        <h2 className="text-xl font-bold text-gray-900 mb-4">Distribuição de Respostas por Categoria (Escala Likert)</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {responseDistribution.likert.map((item) => (
                                 <div key={item.field} className="border border-gray-200 rounded-lg p-4">
@@ -619,7 +617,7 @@ export const ExploratoryAnalysis: FC = () => {
                 )}
 
                 <footer className="mt-8 text-center text-sm text-gray-400">
-                    <p>Exploratory Data Analysis based on {summary.overview.totalSurveys} survey responses from {summary.overview.totalEmployees} employees</p>
+                    <p>Análise Exploratória de Dados baseada em {summary.overview.totalSurveys} respostas de pesquisa de {summary.overview.totalEmployees} colaboradores</p>
                 </footer>
             </div>
         </div>
