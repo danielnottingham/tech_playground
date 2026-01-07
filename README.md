@@ -29,7 +29,7 @@ Abaixo está a lista de tarefas concluídas conforme os requisitos do desafio:
 - [x] **Task 8**: Data Visualization - Employee Level
 - [x] **Task 9**: Build a Simple API
 - [x] **Task 10**: Sentiment Analysis
-- [ ] **Task 11**: Report Generation
+- [x] **Task 11**: Report Generation
 - [ ] **Task 12**: Creative Exploration
 
 ## Pré-requisitos
@@ -289,6 +289,24 @@ A API está disponível em `http://localhost:3000` e possui os seguintes endpoin
 - **POST** `/sentiment/analyze` - Analisa o sentimento de um texto customizado
   - Body: `{ "text": "Texto para analisar" }`
 
+### Relatórios (Reports)
+
+- **GET** `/reports/company` - Gera relatório geral da empresa (JSON)
+  - Query params: `format` (json ou html)
+  - Exemplo: `GET /reports/company?format=html`
+- **GET** `/reports/company/html` - Retorna relatório da empresa em HTML
+- **GET** `/reports/company/download` - Download do relatório da empresa em HTML
+- **GET** `/reports/areas/:id` - Gera relatório de uma área específica
+  - Query params: `format` (json ou html)
+  - Exemplo: `GET /reports/areas/1?format=html`
+- **GET** `/reports/areas/:id/html` - Retorna relatório da área em HTML
+- **GET** `/reports/areas/:id/download` - Download do relatório da área em HTML
+- **GET** `/reports/employees/:id` - Gera relatório de um funcionário específico
+  - Query params: `format` (json ou html)
+  - Exemplo: `GET /reports/employees/1?format=html`
+- **GET** `/reports/employees/:id/html` - Retorna relatório do funcionário em HTML
+- **GET** `/reports/employees/:id/download` - Download do relatório do funcionário em HTML
+
 ### Exemplos de Uso
 
 ```bash
@@ -320,6 +338,18 @@ curl "http://localhost:3000/sentiment/comments?sentiment=negative&limit=5"
 curl -X POST http://localhost:3000/sentiment/analyze \
   -H "Content-Type: application/json" \
   -d '{"text":"Excelente ambiente de trabalho"}'
+
+# Gerar relatório da empresa
+curl http://localhost:3000/reports/company
+
+# Gerar relatório da empresa em HTML
+curl http://localhost:3000/reports/company/html
+
+# Gerar relatório de uma área específica
+curl http://localhost:3000/reports/areas/1
+
+# Gerar relatório de um funcionário
+curl http://localhost:3000/reports/employees/1
 ```
 
 ## Banco de Dados

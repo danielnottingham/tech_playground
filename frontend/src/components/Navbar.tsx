@@ -50,6 +50,12 @@ export const Navbar: FC = () => {
                             >
                                 Sentiment
                             </Link>
+                            <Link
+                                to="/reports"
+                                className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/reports')}`}
+                            >
+                                Reports
+                            </Link>
                         </div>
                     </div>
                 </div>

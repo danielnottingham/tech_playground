@@ -6,6 +6,7 @@ import { AreasModule } from './areas/areas.module';
 import { SurveysModule } from './surveys/surveys.module';
 import { StatsModule } from './stats/stats.module';
 import { SentimentModule } from './sentiment/sentiment.module';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { SentimentModule } from './sentiment/sentiment.module';
         SurveysModule,
         StatsModule,
         SentimentModule,
+        ReportsModule,
     ],
     controllers: [],
     providers: [],

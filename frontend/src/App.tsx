@@ -7,6 +7,7 @@ import { ExploratoryAnalysis } from './pages/ExploratoryAnalysis';
 import { EmployeesList } from './pages/EmployeesList';
 import { EmployeeDetail } from './pages/EmployeeDetail';
 import { SentimentAnalysis } from './pages/SentimentAnalysis';
+import { Reports } from './pages/Reports';
 import './index.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/employees" element={<EmployeesList />} />
         <Route path="/employees/:id" element={<EmployeeDetail />} />
         <Route path="/sentiment" element={<SentimentAnalysis />} />
+        <Route path="/reports" element={<Reports />} />
       </Routes>
     </Router>
   );
