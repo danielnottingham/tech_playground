@@ -5,6 +5,7 @@ import { EmployeesModule } from './employees/employees.module';
 import { AreasModule } from './areas/areas.module';
 import { SurveysModule } from './surveys/surveys.module';
 import { StatsModule } from './stats/stats.module';
+import { SentimentModule } from './sentiment/sentiment.module';
 
 @Module({
     imports: [
@@ -24,6 +25,7 @@ import { StatsModule } from './stats/stats.module';
         AreasModule,
         SurveysModule,
         StatsModule,
+        SentimentModule,
     ],
     controllers: [],
     providers: [],

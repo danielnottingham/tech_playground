@@ -28,7 +28,7 @@ Abaixo está a lista de tarefas concluídas conforme os requisitos do desafio:
 - [x] **Task 7**: Data Visualization - Area Level
 - [x] **Task 8**: Data Visualization - Employee Level
 - [x] **Task 9**: Build a Simple API
-- [ ] **Task 10**: Sentiment Analysis
+- [x] **Task 10**: Sentiment Analysis
 - [ ] **Task 11**: Report Generation
 - [ ] **Task 12**: Creative Exploration
 
@@ -274,6 +274,21 @@ A API está disponível em `http://localhost:3000` e possui os seguintes endpoin
 - **GET** `/stats/employees/:id` - Métricas de um funcionário específico
 - **GET** `/stats/enps` - Cálculo detalhado do eNPS (promoters, passives, detractors)
 
+### Análise de Sentimento (Sentiment)
+
+- **GET** `/sentiment/summary` - Resumo geral do sentimento de todos os comentários
+  - Retorna: total de comentários, média de sentimento, distribuição (positivo/neutro/negativo), análise por campo
+- **GET** `/sentiment/fields` - Lista os campos de comentários disponíveis para análise
+- **GET** `/sentiment/fields/:fieldKey` - Análise de sentimento para um campo específico
+  - Exemplo: `GET /sentiment/fields/enpsComentario`
+- **GET** `/sentiment/employees/:id` - Análise de sentimento dos comentários de um funcionário
+- **GET** `/sentiment/correlation` - Correlação entre sentimento e scores numéricos
+- **GET** `/sentiment/comments` - Lista paginada de comentários com análise de sentimento
+  - Query params: `field`, `sentiment` (positive/neutral/negative), `page`, `limit`
+  - Exemplo: `GET /sentiment/comments?sentiment=negative&limit=10`
+- **POST** `/sentiment/analyze` - Analisa o sentimento de um texto customizado
+  - Body: `{ "text": "Texto para analisar" }`
+
 ### Exemplos de Uso
 
 ```bash
@@ -294,6 +309,17 @@ curl http://localhost:3000/stats/company
 
 # Ver detalhe eNPS
 curl http://localhost:3000/stats/enps
+
+# Ver resumo de sentimento
+curl http://localhost:3000/sentiment/summary
+
+# Ver comentários negativos
+curl "http://localhost:3000/sentiment/comments?sentiment=negative&limit=5"
+
+# Analisar texto customizado
+curl -X POST http://localhost:3000/sentiment/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Excelente ambiente de trabalho"}'
 ```
 
 ## Banco de Dados

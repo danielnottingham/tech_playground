@@ -44,6 +44,12 @@ export const Navbar: FC = () => {
                             >
                                 EDA
                             </Link>
+                            <Link
+                                to="/sentiment"
+                                className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/sentiment')}`}
+                            >
+                                Sentiment
+                            </Link>
                         </div>
                     </div>
                 </div>
