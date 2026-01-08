@@ -8,6 +8,7 @@ import { EmployeesList } from './pages/EmployeesList';
 import { EmployeeDetail } from './pages/EmployeeDetail';
 import { SentimentAnalysis } from './pages/SentimentAnalysis';
 import { Reports } from './pages/Reports';
+import { AttritionRisk } from './pages/AttritionRisk';
 import './index.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/employees/:id" element={<EmployeeDetail />} />
         <Route path="/sentiment" element={<SentimentAnalysis />} />
         <Route path="/reports" element={<Reports />} />
+        <Route path="/attrition-risk" element={<AttritionRisk />} />
       </Routes>
     </Router>
   );

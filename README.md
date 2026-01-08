@@ -30,7 +30,7 @@ Abaixo está a lista de tarefas concluídas conforme os requisitos do desafio:
 - [x] **Task 9**: Build a Simple API
 - [x] **Task 10**: Sentiment Analysis
 - [x] **Task 11**: Report Generation
-- [ ] **Task 12**: Creative Exploration
+- [x] **Task 12**: Creative Exploration (Attrition Risk Analysis)
 
 ## Pré-requisitos
 
@@ -307,6 +307,24 @@ A API está disponível em `http://localhost:3000` e possui os seguintes endpoin
 - **GET** `/reports/employees/:id/html` - Retorna relatório do funcionário em HTML
 - **GET** `/reports/employees/:id/download` - Download do relatório do funcionário em HTML
 
+### Risco de Atrito (Attrition Risk) - Task 12: Creative Exploration
+
+- **GET** `/attrition-risk/summary` - Resumo geral do risco de atrito da empresa
+  - Retorna: total de colaboradores, distribuição de risco (crítico/alto/moderado/baixo), principais fatores de risco, análise demográfica
+- **GET** `/attrition-risk/employees` - Lista todos colaboradores com avaliação de risco
+  - Query params: `page`, `limit`, `sortBy` (riskScore ou name), `riskLevel` (critical/high/moderate/low)
+  - Exemplo: `GET /attrition-risk/employees?page=1&limit=20&sortBy=riskScore&riskLevel=high`
+- **GET** `/attrition-risk/high-risk` - Lista colaboradores em alto risco (crítico + alto)
+  - Query params: `limit` (padrão: 10)
+  - Exemplo: `GET /attrition-risk/high-risk?limit=15`
+- **GET** `/attrition-risk/employees/:id` - Avaliação de risco de um colaborador específico
+  - Retorna: score de risco, nível de risco, fatores contribuintes, recomendações de ação
+  - Exemplo: `GET /attrition-risk/employees/1`
+- **GET** `/attrition-risk/analysis/career-clarity` - Análise do impacto da clareza de carreira no risco
+  - Retorna: hipótese, correlação, conclusão estatística
+- **GET** `/attrition-risk/analysis/tenure-pattern` - Análise do padrão de risco por tempo de empresa
+  - Retorna: hipótese, maior/menor risco por tenure, padrão identificado
+
 ### Exemplos de Uso
 
 ```bash
@@ -350,6 +368,21 @@ curl http://localhost:3000/reports/areas/1
 
 # Gerar relatório de um funcionário
 curl http://localhost:3000/reports/employees/1
+
+# Ver resumo de risco de atrito
+curl http://localhost:3000/attrition-risk/summary
+
+# Ver colaboradores em alto risco
+curl http://localhost:3000/attrition-risk/high-risk
+
+# Ver risco de um colaborador específico
+curl http://localhost:3000/attrition-risk/employees/1
+
+# Ver análise de impacto da clareza de carreira
+curl http://localhost:3000/attrition-risk/analysis/career-clarity
+
+# Ver padrão de risco por tempo de empresa
+curl http://localhost:3000/attrition-risk/analysis/tenure-pattern
 ```
 
 ## Banco de Dados
@@ -545,6 +578,76 @@ docker-compose build
 # Limpar tudo (containers, volumes, imagens)
 docker-compose down -v --rmi all
 ```
+
+## Task 12: Creative Exploration - Análise de Risco de Atrito
+
+### Objetivo
+
+Implementar uma análise criativa que identifica colaboradores em risco de desligamento através de um algoritmo multifatorial que combina diferentes indicadores da pesquisa de satisfação.
+
+### Hipótese
+
+**"Podemos prever o risco de atrito de colaboradores combinando múltiplos fatores como expectativa de permanência, eNPS, clareza de carreira, interação com gestor e sentimento dos comentários."**
+
+### Metodologia
+
+O algoritmo de risco de atrito calcula um score de 0 a 100 combinando 8 fatores com pesos específicos:
+
+| Fator | Peso | Descrição |
+|-------|------|-----------|
+| Expectativa de Permanência | 25% | Indicador mais direto de intenção de ficar na empresa |
+| Score eNPS | 20% | Indicador geral de satisfação e lealdade |
+| Clareza de Carreira | 15% | Percepção de oportunidades de desenvolvimento |
+| Interação com Gestor | 12% | Qualidade do relacionamento com liderança |
+| Sentimento dos Comentários | 10% | Análise de sentimento via NLP (integração com Task 10) |
+| Feedback | 8% | Percepção da qualidade do feedback recebido |
+| Aprendizado | 5% | Oportunidades de desenvolvimento |
+| Contribuição | 5% | Senso de contribuição para a equipe |
+
+### Classificação de Risco
+
+- **Crítico (>=70%)**: Ação imediata necessária - reunião com RH e liderança
+- **Alto (50-69%)**: Ação preventiva prioritária
+- **Moderado (30-49%)**: Monitoramento e melhorias pontuais
+- **Baixo (<30%)**: Colaborador estável
+
+### Funcionalidades
+
+1. **Dashboard de Risco**: Visão geral da empresa com distribuição de risco e principais fatores
+2. **Lista de Colaboradores em Risco**: Ranking por score de risco com filtros
+3. **Perfil Individual de Risco**: Detalhamento dos fatores e recomendações personalizadas
+4. **Análise de Hipóteses**:
+   - Impacto da clareza de carreira no risco (correlação estatística)
+   - Padrão de risco por tempo de empresa
+
+### Recomendações Automáticas
+
+O sistema gera recomendações de ação baseadas nos principais fatores de risco de cada colaborador:
+
+- Baixa expectativa de permanência → Conversa 1:1 sobre planos futuros
+- Baixo eNPS → Investigar motivos de insatisfação
+- Pouca clareza de carreira → Criar plano de desenvolvimento individual
+- Interação fraca com gestor → Melhorar frequência de feedback
+- Sentimento negativo → Analisar comentários e abordar preocupações
+
+### Acesso
+
+- **Frontend**: `http://localhost:5173/attrition-risk`
+- **API**: `http://localhost:3000/attrition-risk/*`
+
+### Testes
+
+```bash
+# Testes unitários do serviço
+docker-compose exec -it backend npm test -- --testPathPattern=attrition-risk
+
+# Testes E2E
+docker-compose exec -it backend npm run test:e2e -- --testPathPattern=attrition-risk
+```
+
+### Conclusão
+
+Esta análise demonstra como múltiplas dimensões da pesquisa de satisfação podem ser combinadas para gerar insights acionáveis para a área de RH, permitindo ações preventivas de retenção de talentos antes que o desligamento ocorra.
 
 ## Licença
 

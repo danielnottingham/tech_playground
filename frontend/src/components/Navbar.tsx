@@ -56,6 +56,12 @@ export const Navbar: FC = () => {
                             >
                                 Relatórios
                             </Link>
+                            <Link
+                                to="/attrition-risk"
+                                className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${isActive('/attrition-risk')}`}
+                            >
+                                Risco de Atrito
+                            </Link>
                         </div>
                     </div>
                 </div>

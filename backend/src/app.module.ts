@@ -7,6 +7,7 @@ import { SurveysModule } from './surveys/surveys.module';
 import { StatsModule } from './stats/stats.module';
 import { SentimentModule } from './sentiment/sentiment.module';
 import { ReportsModule } from './reports/reports.module';
+import { AttritionRiskModule } from './attrition-risk/attrition-risk.module';
 
 @Module({
     imports: [
@@ -28,6 +29,7 @@ import { ReportsModule } from './reports/reports.module';
         StatsModule,
         SentimentModule,
         ReportsModule,
+        AttritionRiskModule,
     ],
     controllers: [],
     providers: [],
